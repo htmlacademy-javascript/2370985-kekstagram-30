@@ -108,48 +108,15 @@ const generateCommentAvatar = createRandomNumberFromRangeGeneratorNoRepetition(1
 
 const generateCommentMessage = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const createRandomQuantityComment = getRandomNumber(minComment, maxComment);
-
-function resultComment() {
-  const generateComment = () => ({
-    commentId: generateCommentId(),
-    commentAvatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
-    commentMessage: generateCommentMessage(MESSAGE),
-    commentName: generateCommentMessage(NAME),
-  });
-  console.log(generateComment);
-  return const = commentsArray.push(generateComment);
-}
-
-
-
-/* function resultComment() {
-  const commentsArray = [];
-  let object = {};
-  for (let i = 0; i < getRandomNumber(0,30); i++) {
-    object = {
-      commentId: generateCommentId(),
-      commentAvatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
-      commentMessage: generateCommentMessage(MESSAGE),
-      commentName: generateCommentMessage(NAME),
-    };
-    commentsArray.push(object);
-  }
-  return commentsArray;
-} */
-
-/* const resultComment = () => ({
+const resultComment = () => ({
   commentId: generateCommentId(),
   commentAvatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
   commentMessage: generateCommentMessage(MESSAGE),
   commentName: generateCommentMessage(NAME),
 });
 
-const createRandomQuantityComment = getRandomNumber(minComment, maxComment);
-
-let comment = Array.from({ length: createRandomQuantityComment }, resultComment);
+const comment = Array.from({ length: getRandomNumber(minComment, maxComment) }, resultComment);
 console.log(comment);
-console.log(comment); */
 
 /* Создание фото с комментами */
 
@@ -171,7 +138,7 @@ const resultPhoto = () => ({
   /* description: getRandomArrayElement(DESCRIPTION), */
   likes: getElementFromGivenInterval(),
   /* likes: getElementFromGivenInterval(), */
-  comments: resultComment(),
+  comments: comment,
 });
 
 const homework = Array.from({ length: generatedObject }, resultPhoto);
