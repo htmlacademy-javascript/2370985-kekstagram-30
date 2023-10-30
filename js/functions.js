@@ -1,6 +1,4 @@
-const getStringLength = (string, length) => {
-  return string.length <= length;
-};
+const getStringLength = (string, length) => string.length <= length;
 
 getStringLength('проверяемая строка', 20);
 getStringLength('проверяемая строка', 18);
@@ -9,10 +7,10 @@ getStringLength('проверяемая строка', 10);
 const isStringPalindrome = (palindrome) => {
   const string = palindrome.replaceAll(' ', '').toLowerCase();
   for (let i = 0; i <= string.length / 2; i++) {
-    if (string.at(i) === string.at(-i - 1)) {
-      return true;
+    if (string.at(i) !== string.at(-i - 1)) {
+      return false;
     }
-    return false;
+    return true;
   }
 };
 
