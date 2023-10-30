@@ -58,6 +58,8 @@ let maxLikes = 200;
 let minComment = 0;
 let maxComment = 30;
 
+/* Перечисление чисел */
+
 function generatedNumber() {
   let firstGeneratedNumber = 0;
 
@@ -67,12 +69,16 @@ function generatedNumber() {
   };
 }
 
+/* Создание случайного числа */
+
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
+
+/* Создание неповторяющегося случайного числа */
 
 function createRandomNumberFromRangeGenerator(a, b) {
   const previousValues = [];
@@ -91,55 +97,35 @@ function createRandomNumberFromRangeGenerator(a, b) {
   };
 }
 
-function createRandomNumberFromRangeGeneratorNoRepetition(a, b) {
-  const previousValues1 = [];
-
-  return function () {
-    let currentValue1 = getRandomNumber(a, b);
-    previousValues1.push(currentValue1);
-    return currentValue1;
-  };
-}
-
-/* Создание комментов */
+/* Генерация комментов */
 
 const generateCommentId = createRandomNumberFromRangeGenerator(1, 500);
-const generateCommentAvatar = createRandomNumberFromRangeGeneratorNoRepetition(1, 6);
-
+const generateCommentAvatar = () => getRandomNumber(1, 6);
 const generateCommentMessage = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 const resultComment = () => ({
-  commentId: generateCommentId(),
-  commentAvatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
-  commentMessage: generateCommentMessage(MESSAGE),
-  commentName: generateCommentMessage(NAME),
+  id: generateCommentId(),
+  avatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
+  message: generateCommentMessage(MESSAGE),
+  name: generateCommentMessage(NAME),
 });
 
-const comment = Array.from({ length: getRandomNumber(minComment, maxComment) }, resultComment);
-console.log(comment);
+const comment = () => Array.from({ length: getRandomNumber(minComment, maxComment) }, resultComment);
 
-/* Создание фото с комментами */
+/* Генерация описания фотографии */
 
 const generateId = generatedNumber();
 const generateUrl = generatedNumber();
-
 const generateDescription = createRandomNumberFromRangeGenerator(0, DESCRIPTION.length - 1);
-/* const getRandomArrayElement = (elements) => elements[createRandomNumberFromRangeGenerator(0, elements.length - 1)]; */
-
 const getElementFromGivenInterval = createRandomNumberFromRangeGenerator(minLikes, maxLikes);
-/* const getElementFromGivenInterval = (a, b) => createRandomNumberFromRangeGenerator(a, b); */
 
-
-
-const resultPhoto = () => ({
+const result = () => ({
   id: generateId(),
   url: 'photos/' + generateUrl() + '.jpg',
   description: DESCRIPTION[generateDescription()],
-  /* description: getRandomArrayElement(DESCRIPTION), */
   likes: getElementFromGivenInterval(),
-  /* likes: getElementFromGivenInterval(), */
-  comments: comment,
+  comments: comment(),
 });
 
-const homework = Array.from({ length: generatedObject }, resultPhoto);
+const homework = Array.from({ length: generatedObject }, result);
 console.log(homework);
