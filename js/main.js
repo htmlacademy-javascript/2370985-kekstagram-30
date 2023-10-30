@@ -25,7 +25,6 @@ const DESCRIPTION = [
   'Учеба',
   'Пятничный отдых',
 ];
-
 const MESSAGE = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -33,36 +32,33 @@ const MESSAGE = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-  ];
-
-  const NAME = [
-    'Дмитрий',
-    'Александр',
-    'Геннадий',
-    'Вадим',
-    'Артем',
-    'Яна',
-    'Алексей',
-    'Жана',
-    'Сергей',
-    'Олег',
-    'Наталья',
-    'Юлия',
-    'Анна',
-    'Екатерина',
 ];
-
-let generatedObject = 25;
-let minLikes = 15;
-let maxLikes = 200;
-let minComment = 0;
-let maxComment = 30;
+const NAME = [
+  'Дмитрий',
+  'Александр',
+  'Геннадий',
+  'Вадим',
+  'Артем',
+  'Яна',
+  'Алексей',
+  'Жана',
+  'Сергей',
+  'Олег',
+  'Наталья',
+  'Юлия',
+  'Анна',
+  'Екатерина',
+];
+const generatedObject = 25;
+const minLikes = 15;
+const maxLikes = 200;
+const minComment = 0;
+const maxComment = 30;
 
 /* Перечисление чисел */
 
 function generatedNumber() {
   let firstGeneratedNumber = 0;
-
   return function () {
     firstGeneratedNumber += 1;
     return firstGeneratedNumber;
@@ -82,11 +78,10 @@ const getRandomNumber = (a, b) => {
 
 function createRandomNumberFromRangeGenerator(a, b) {
   const previousValues = [];
-
   return function () {
     let currentValue = getRandomNumber(a, b);
     if (previousValues.length >= (b - a + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + a + ' до ' + b);
+      console.error(`Перебраны все числа из диапазона от ${a} до ${b}`);  // eslint-disable-line
       return null;
     }
     while (previousValues.includes(currentValue)) {
@@ -103,14 +98,14 @@ const generateCommentId = createRandomNumberFromRangeGenerator(1, 500);
 const generateCommentAvatar = () => getRandomNumber(1, 6);
 const generateCommentMessage = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const resultComment = () => ({
+const generateComment = () => ({
   id: generateCommentId(),
-  avatar: 'img/avatar-' + generateCommentAvatar() + '.svg',
+  avatar: `img/avatar-${generateCommentAvatar()}.svg`,
   message: generateCommentMessage(MESSAGE),
   name: generateCommentMessage(NAME),
 });
 
-const comment = () => Array.from({ length: getRandomNumber(minComment, maxComment) }, resultComment);
+const comment = () => Array.from({ length: getRandomNumber(minComment, maxComment) }, generateComment);
 
 /* Генерация описания фотографии */
 
@@ -119,13 +114,12 @@ const generateUrl = generatedNumber();
 const generateDescription = createRandomNumberFromRangeGenerator(0, DESCRIPTION.length - 1);
 const getElementFromGivenInterval = createRandomNumberFromRangeGenerator(minLikes, maxLikes);
 
-const result = () => ({
+const generateObject = () => ({
   id: generateId(),
-  url: 'photos/' + generateUrl() + '.jpg',
+  url: `photos/${generateUrl()}.jpg`,
   description: DESCRIPTION[generateDescription()],
   likes: getElementFromGivenInterval(),
   comments: comment(),
 });
-
-const homework = Array.from({ length: generatedObject }, result);
-console.log(homework);
+const homework = Array.from({length: generatedObject}, generateObject);
+console.log(homework); // eslint-disable-line
