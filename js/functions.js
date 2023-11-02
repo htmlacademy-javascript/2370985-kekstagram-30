@@ -38,3 +38,27 @@ extractNumbers('а я томат');
 extractNumbers(2023);
 extractNumbers(-1);
 extractNumbers(1.5);
+
+
+// Домашнее задание module5-task2
+
+const workingHours = (startWorkingHours, endWorkingHours, startMeeting, durationMeeting) => {
+  const massive = [startWorkingHours, endWorkingHours, startMeeting];
+  const minute = [];
+  for (let i = 0; i <= massive.length - 1; i++) {
+    const stringSplitting = massive[i].split(':');
+    const getMinutes = parseInt(stringSplitting[0] * 60, 10) + parseInt(stringSplitting[1], 10);
+    minute.push(getMinutes);
+  }
+  if (minute[0] <= minute[2] === minute[1] >= minute[2] + durationMeeting) {
+    return true;
+  }
+  return false;
+};
+
+workingHours('08:00', '17:30', '14:00', 90); // true
+workingHours('8:0', '10:0', '8:0', 120); // true
+workingHours('08:00', '14:30', '14:00', 90); // false
+workingHours('14:00', '17:30', '08:0', 90); // false
+workingHours('8:00', '17:30', '08:00', 900); // false
+
