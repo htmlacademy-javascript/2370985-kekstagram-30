@@ -1,16 +1,12 @@
-import {MESSAGE} from './massive.js';
-import {NAME} from './massive.js';
+import {MESSAGE, NAME} from './massive.js';
 
-import {maxIdComment} from './argument.js';
-import {minComment} from './argument.js';
-import {maxComment} from './argument.js';
+import {MAX_ID_COMMENT, MIN_COMMENT, MAX_COMMENT} from './argument.js';
 
-import {getRandomNumber} from './util.js';
-import {createRandomNumberFromRangeGenerator} from './util.js';
+import {getRandomNumber, createRandomNumberFromRangeGenerator} from './util.js';
 
 /* Генерация комментов */
 
-const generateCommentId = createRandomNumberFromRangeGenerator(0, maxIdComment);
+const generateCommentId = createRandomNumberFromRangeGenerator(0, MAX_ID_COMMENT);
 const generateCommentAvatar = () => getRandomNumber(1, 6);
 const generateCommentMessage = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
@@ -21,5 +17,6 @@ const generateComment = () => ({
   name: generateCommentMessage(NAME),
 });
 
-const comment = () => Array.from({ length: getRandomNumber(minComment, maxComment) }, generateComment);
+const comment = () => Array.from({ length: getRandomNumber(MIN_COMMENT, MAX_COMMENT) }, generateComment);
 export {comment};
+

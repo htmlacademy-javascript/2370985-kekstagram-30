@@ -1,12 +1,8 @@
 import {DESCRIPTION} from './massive.js';
 
-import {generatedObject} from './argument.js';
+import {GENERATE_DOBJECT, MIN_LIKES, MAX_LIKES} from './argument.js';
 
-import {minLikes} from './argument.js';
-import {maxLikes} from './argument.js';
-
-import {generatedNumber} from './util.js';
-import {createRandomNumberFromRangeGenerator} from './util.js';
+import {generatedNumber, createRandomNumberFromRangeGenerator} from './util.js';
 
 import {comment} from './generate-comments.js';
 
@@ -14,7 +10,7 @@ import {comment} from './generate-comments.js';
 const generateId = generatedNumber();
 const generateUrl = generatedNumber();
 const generateDescription = createRandomNumberFromRangeGenerator(0, DESCRIPTION.length - 1);
-const getElementFromGivenInterval = createRandomNumberFromRangeGenerator(minLikes, maxLikes);
+const getElementFromGivenInterval = createRandomNumberFromRangeGenerator(MIN_LIKES, MAX_LIKES);
 
 const generateObject = () => ({
   id: generateId(),
@@ -23,7 +19,7 @@ const generateObject = () => ({
   likes: getElementFromGivenInterval(),
   comments: comment(),
 });
-const homework = Array.from({length: generatedObject}, generateObject);
+const homework = Array.from({length: GENERATE_DOBJECT}, generateObject);
 export {homework};
 
 

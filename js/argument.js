@@ -1,13 +1,8 @@
-const generatedObject = 25;
-const maxIdComment = 500;
-const minLikes = 15;
-const maxLikes = 200;
-const minComment = 0;
-const maxComment = 30;
+const GENERATE_DOBJECT = 25;
+const MAX_ID_COMMENT = 500;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_COMMENT = 0;
+const MAX_COMMENT = 30;
 
-export {generatedObject};
-export {maxIdComment};
-export {minLikes};
-export {maxLikes};
-export {minComment};
-export {maxComment};
+export {GENERATE_DOBJECT, MAX_ID_COMMENT, MIN_LIKES, MAX_LIKES, MIN_COMMENT, MAX_COMMENT};
