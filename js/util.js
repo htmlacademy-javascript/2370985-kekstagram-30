@@ -35,6 +35,4 @@ function createRandomNumberFromRangeGenerator(a, b) {
   };
 }
 
-export {generatedNumber};
-export {getRandomNumber};
-export {createRandomNumberFromRangeGenerator};
+export {generatedNumber, getRandomNumber, createRandomNumberFromRangeGenerator};

@@ -50,6 +50,4 @@ const NAME = [
   'Екатерина',
 ];
 
-export {DESCRIPTION};
-export {MESSAGE};
-export {NAME};
+export {DESCRIPTION, MESSAGE, NAME};
