@@ -2,16 +2,15 @@ import { isEscapeKey } from './util.js';
 
 import { homework } from './generate-object.js';
 
-const picture = document.querySelectorAll('.picture');
+const pictures = document.querySelectorAll('.picture');
 const bigPictureOpen = document.querySelector('.big-picture');
 const bigPictureClose = document.querySelector('.big-picture__cancel');
 const bigPictureUrlElement = bigPictureOpen.querySelector('.big-picture__img')
   .querySelector('img');
-  const bigPictureLikesElement = bigPictureOpen.querySelector('.social__header')
+const bigPictureLikesElement = bigPictureOpen.querySelector('.social__header')
   .querySelector('.likes-count');
 const bigPictureCommentElement = bigPictureOpen.querySelector('.social__comments');
 const bigPictureShowCommentElement = bigPictureCommentElement.children;
-console.log(bigPictureShowCommentElement)
 const bigPictureShowQuantityCommentElement = bigPictureOpen.querySelector('.social__comment-count')
   .querySelector('.social__comment-shown-count');
 const bigPictureSumCommentElement = bigPictureOpen.querySelector('.social__comment-count')
@@ -20,10 +19,9 @@ const bigPictureCaptionElement = bigPictureOpen.querySelector('.social__caption'
 const bigPictureCommentLoader = bigPictureOpen.querySelector('.comments-loader');
 
 
-for (let i = 0; i < picture.length; i++) {
-  let pictureElement = picture[i];
-
-  pictureElement.addEventListener('click', (evt) => {
+for (let i = 0; i < pictures.length; i++) {
+  const picture = pictures[i];
+  picture.addEventListener('click', (evt) => {
     evt.preventDefault();
     bigPictureOpen.classList.remove('hidden');
 
@@ -47,11 +45,11 @@ for (let i = 0; i < picture.length; i++) {
 
     bigPictureCommentElement.append(fragment);
 
-    bigPictureUrlElement.src = pictureElement.querySelector('.picture__img').src;
-    bigPictureLikesElement.textContent = pictureElement.querySelector('.picture__likes').textContent;
+    bigPictureUrlElement.src = picture.querySelector('.picture__img').src;
+    bigPictureLikesElement.textContent = picture.querySelector('.picture__likes').textContent;
     bigPictureShowQuantityCommentElement.textContent = bigPictureShowCommentElement.length;
-    bigPictureSumCommentElement.textContent = pictureElement.querySelector('.picture__comments').textContent;
-    bigPictureCaptionElement.textContent = pictureElement.querySelector('.picture__img').alt;
+    bigPictureSumCommentElement.textContent = picture.querySelector('.picture__comments').textContent;
+    bigPictureCaptionElement.textContent = picture.querySelector('.picture__img').alt;
 
     bigPictureCommentLoader.classList.add('hidden');
 
