@@ -6,4 +6,4 @@ const createGallery = (pictures, container) => {
   openBigPicture(pictures, container);
 };
 
-export {createGallery}
+export {createGallery};
