@@ -1,3 +1,5 @@
+import './form.js';
+
 import {pictures} from './render-massive-picture.js';
 
 import {createGallery} from './gallery.js';
