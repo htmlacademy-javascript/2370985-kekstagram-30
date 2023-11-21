@@ -34,12 +34,18 @@ const onBiggerButton = () => {
   elementFormModalInputFieldScale.value = `${valueInput}%`;
 };
 
+const resetScale = () => {
+  valueInput = MAX_SCALE;
+  transromImage();
+};
+
 function addEventScale() {
   elementFormModalSmallerButtonScale.addEventListener('click', onSmallerButton);elementFormModalBiggerButtonScale.addEventListener('click', onBiggerButton);
 }
 
 function removeEventScale() {
   elementFormModalSmallerButtonScale.removeEventListener('click', onSmallerButton);elementFormModalBiggerButtonScale.removeEventListener('click', onBiggerButton);
+  resetScale();
 }
 
 export { addEventScale, removeEventScale };
