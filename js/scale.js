@@ -12,6 +12,7 @@ let valueInput = elementFormModalInputFieldScale.value.replace('%','');
 
 const transromImage = () => {
   elementModalImage.style.transform = `scale(${valueInput / 100})`;
+  elementFormModalInputFieldScale.value = `${valueInput}%`;
 };
 
 const onSmallerButton = () => {
@@ -21,7 +22,6 @@ const onSmallerButton = () => {
     return;
   }
   transromImage();
-  elementFormModalInputFieldScale.value = `${valueInput}%`;
 };
 
 const onBiggerButton = () => {
@@ -31,7 +31,6 @@ const onBiggerButton = () => {
     return;
   }
   transromImage();
-  elementFormModalInputFieldScale.value = `${valueInput}%`;
 };
 
 const resetScale = () => {
