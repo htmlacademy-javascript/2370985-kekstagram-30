@@ -66,9 +66,9 @@ const EffectSliders = {
 const elementFormModal = document.querySelector('.img-upload');
 const elementModalImage = elementFormModal.querySelector('.img-upload__preview img');
 const elementModalEffects = elementFormModal.querySelector('.effects');
-const elementModalSlider = elementFormModal.querySelector('.effects-level__slider');
-const elementModalSliderContainer = elementFormModal.querySelector('.img-upload__effects-level');
-const elementModalEffectLevel = elementFormModal.querySelector('.effects-level__value');
+const elementModalSlider = elementFormModal.querySelector('.effect-level__slider');
+const elementModalSliderContainer = elementFormModal.querySelector('.img-upload__effect-level');
+const elementModalEffectLevel = elementFormModal.querySelector('.effect-level__value');
 
 let chosenEffect = Effect.DEFAULT;
 
@@ -81,9 +81,9 @@ const setImageStyle = () => {
   }
 
   const value = elementModalEffectLevel.value;
-  const filter = EffectPredominant[chosenEffect.filter];
-  const unit = EffectPredominant[chosenEffect.unit];
-  elementModalImage.style.filter = filter + (value + unit);
+  const filter = EffectPredominant[chosenEffect].filter;
+  const unit = EffectPredominant[chosenEffect].unit;
+  elementModalImage.style.filter = `${filter}(${value}${unit})`;
 };
 
 const showSlider = () => {
@@ -137,17 +137,18 @@ const setEffect = (effect) => {
   setImageStyle();
 };
 
-const reset = () => {
-  setEffect(Effect.DEFAULT);
-};
-
 const onEffectChange = (evt) => {
   setEffect(evt.target.value);
 };
 
+const reset = () => {
+  setEffect(Effect.DEFAULT);
+  elementModalEffects.removeEventListener('change', onEffectChange);
+};
+
 const init = () => {
-  createSlider(EffectSliders[chosenEffect]);
   elementModalEffects.addEventListener('change', onEffectChange);
+  createSlider(EffectSliders[chosenEffect]);
 };
 
 export { init, reset };

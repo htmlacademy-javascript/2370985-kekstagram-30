@@ -2,6 +2,10 @@ import { isEscapeKey } from './util.js';
 
 import { init, reset } from './effect.js';
 
+import { addEventScale, removeEventScale } from './scale.js';
+
+import './scale.js';
+
 const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ErrorText = {
@@ -52,7 +56,6 @@ const showOverlay = () => {
   formElementOverlay.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   addEventForm();
-  init();
 };
 
 formElementInputField.addEventListener('click', (evt) => {
@@ -101,11 +104,14 @@ form.addEventListener('submit', (evt) => {
 function addEventForm() {
   document.addEventListener('keydown', onEscKeydown);
   formElementCancelButton.addEventListener('click', onCloseButtonForm);
+  addEventScale();
+  init();
 }
 
 function removeEventForm() {
   document.removeEventListener('keydown', onEscKeydown);
   formElementCancelButton.removeEventListener('click', onCloseButtonForm);
+  removeEventScale();
   reset();
 }
 
