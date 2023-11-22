@@ -4,7 +4,7 @@ const COMMENTS_SHOWN = 5;
 
 const bigPicture = document.querySelector('.big-picture');
 const bodyElement = document.body;
-const pictureElementImg = bigPicture.querySelector('img');
+const pictureElementImg = bigPicture.querySelector('.big-picture__img img');
 const pictureElementCloseButton = document.querySelector('.big-picture__cancel');
 const pictureElementContainerComment = bigPicture.querySelector('.social__comments');
 
