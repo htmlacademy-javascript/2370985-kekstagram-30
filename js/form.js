@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 
+import { showMessageSuccess, showMessageError } from './submit-message.js';
+
 import { init, reset } from './effect.js';
 
 import { addEventScale, removeEventScale } from './scale.js';
@@ -10,7 +12,7 @@ const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ErrorText = {
   INVALID_PATTERN: 'Введён неправильный хэш-тег',
-  INVALID_QUANTITY_HASHTAG: `Максимум ${ MAX_QUANTITY_HASHTAG } хэш-тегов`,
+  INVALID_QUANTITY_HASHTAG: `Максимум ${MAX_QUANTITY_HASHTAG} хэш-тегов`,
   NOT_BE_REPEATED: 'Хэш-теги не должны повторяться',
 };
 
@@ -58,7 +60,7 @@ const showOverlay = () => {
   addEventForm();
 };
 
-formElementInputField.addEventListener('click', (evt) => {
+formElementInputField.addEventListener('change', (evt) => {
   evt.preventDefault();
   showOverlay();
 });
@@ -95,11 +97,37 @@ pristine.addValidator(
   3,
   true);
 
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+      fetch(
+        'https://30.javascript.pages.academy/kekstagram',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      )
+        .then((response) => {
+          if (response.ok) {
+            onSuccess();
+            showMessageSuccess();
+          } else {
+            showMessageError();
+          }
+
+        })
+        .catch(() => {
+          showMessageError();
+        });
+    }
+  });
+};
+
+setUserFormSubmit(hideOverlay);
 
 function addEventForm() {
   document.addEventListener('keydown', onEscKeydown);
