@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 
-import { showMessageSuccess, showMessageError } from './submit-message.js';
+import { showMessageSendData } from './submit-message.js';
 
 import { init, reset } from './effect.js';
 
@@ -41,8 +41,12 @@ const focusedTextField = () =>
   document.activeElement === formElementHashtagFeild ||
   document.activeElement === formElementCommentFeild;
 
+function isErrorMessageExists() {
+  return Boolean(document.querySelector('.error'));
+}
+
 const onEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && !focusedTextField()) {
+  if (isEscapeKey(evt) && !focusedTextField() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideOverlay();
     removeEventForm();
@@ -114,14 +118,14 @@ const setUserFormSubmit = (onSuccess) => {
         .then((response) => {
           if (response.ok) {
             onSuccess();
-            showMessageSuccess();
+            showMessageSendData('success');
           } else {
-            showMessageError();
+            showMessageSendData('error');
           }
 
         })
         .catch(() => {
-          showMessageError();
+          showMessageSendData('error');
         });
     }
   });

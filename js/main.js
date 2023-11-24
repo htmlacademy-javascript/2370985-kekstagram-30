@@ -1,6 +1,6 @@
 import './form.js';
 
-import { showMessageDataError } from './submit-message.js';
+import { showMessageGetData } from './submit-message.js';
 
 /* import {pictures} from './render-massive-picture.js'; */
 
@@ -11,7 +11,7 @@ const container = document.querySelector('.pictures');
 fetch('https://30.javascript.pages.academy/kekstagram/data')
   .then((response) => {
     if (!response.ok) {
-      showMessageDataError();
+      showMessageGetData('data-error');
     }
     return response.json();
   })
