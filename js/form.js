@@ -6,7 +6,7 @@ import { init, reset } from './effect.js';
 
 import { addEventScale, removeEventScale } from './scale.js';
 
-import './scale.js';
+import { sendData } from './api.js';
 
 const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -23,6 +23,7 @@ const formElementInputField = form.querySelector('.img-upload__input');
 const formElementCancelButton = form.querySelector('.img-upload__cancel');
 const formElementHashtagFeild = form.querySelector('.text__hashtags');
 const formElementCommentFeild = form.querySelector('.text__description');
+const formElementSendButton = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -35,6 +36,7 @@ const hideOverlay = () => {
   pristine.reset();
   formElementOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  removeEventForm();
 };
 
 const focusedTextField = () =>
@@ -101,32 +103,29 @@ pristine.addValidator(
   3,
   true);
 
+const blockSubmitButton = () => {
+  formElementSendButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  formElementSendButton.disabled = false;
+};
+
 const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      const formData = new FormData(evt.target);
-
-      fetch(
-        'https://30.javascript.pages.academy/kekstagram',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-        .then((response) => {
-          if (response.ok) {
-            onSuccess();
-            showMessageSendData('success');
-          } else {
-            showMessageSendData('error');
-          }
-
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          onSuccess();
+          showMessageSendData('success');
         })
         .catch(() => {
           showMessageSendData('error');
-        });
+        })
+        .finally(unblockSubmitButton);
     }
   });
 };
