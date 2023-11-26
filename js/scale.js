@@ -1,6 +1,7 @@
 const STEP_SCALE = 25;
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
+const DEFAULT_SCALE = 100;
 
 const elementFormModal = document.querySelector('.img-upload');
 const elementModalImage = elementFormModal.querySelector('.img-upload__preview img');
@@ -34,7 +35,7 @@ const onBiggerButton = () => {
 };
 
 const resetScale = () => {
-  valueInput = MAX_SCALE;
+  valueInput = DEFAULT_SCALE;
   transromImage();
 };
 

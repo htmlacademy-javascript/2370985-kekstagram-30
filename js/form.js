@@ -1,16 +1,18 @@
 import { isEscapeKey } from './util.js';
 
+import { showMessageSendData } from './submit-message.js';
+
 import { init, reset } from './effect.js';
 
 import { addEventScale, removeEventScale } from './scale.js';
 
-import './scale.js';
+import { sendData } from './api.js';
 
 const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ErrorText = {
   INVALID_PATTERN: 'Введён неправильный хэш-тег',
-  INVALID_QUANTITY_HASHTAG: `Максимум ${ MAX_QUANTITY_HASHTAG } хэш-тегов`,
+  INVALID_QUANTITY_HASHTAG: `Максимум ${MAX_QUANTITY_HASHTAG} хэш-тегов`,
   NOT_BE_REPEATED: 'Хэш-теги не должны повторяться',
 };
 
@@ -21,6 +23,7 @@ const formElementInputField = form.querySelector('.img-upload__input');
 const formElementCancelButton = form.querySelector('.img-upload__cancel');
 const formElementHashtagFeild = form.querySelector('.text__hashtags');
 const formElementCommentFeild = form.querySelector('.text__description');
+const formElementSendButton = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -33,14 +36,19 @@ const hideOverlay = () => {
   pristine.reset();
   formElementOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  removeEventForm();
 };
 
 const focusedTextField = () =>
   document.activeElement === formElementHashtagFeild ||
   document.activeElement === formElementCommentFeild;
 
+function isErrorMessageExists() {
+  return Boolean(document.querySelector('.error'));
+}
+
 const onEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && !focusedTextField()) {
+  if (isEscapeKey(evt) && !focusedTextField() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideOverlay();
     removeEventForm();
@@ -58,7 +66,7 @@ const showOverlay = () => {
   addEventForm();
 };
 
-formElementInputField.addEventListener('click', (evt) => {
+formElementInputField.addEventListener('change', (evt) => {
   evt.preventDefault();
   showOverlay();
 });
@@ -95,11 +103,34 @@ pristine.addValidator(
   3,
   true);
 
+const blockSubmitButton = () => {
+  formElementSendButton.disabled = true;
+};
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const unblockSubmitButton = () => {
+  formElementSendButton.disabled = false;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          onSuccess();
+          showMessageSendData('success');
+        })
+        .catch(() => {
+          showMessageSendData('error');
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
+setUserFormSubmit(hideOverlay);
 
 function addEventForm() {
   document.addEventListener('keydown', onEscKeydown);

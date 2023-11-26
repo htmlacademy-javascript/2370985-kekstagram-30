@@ -144,6 +144,7 @@ const onEffectChange = (evt) => {
 const reset = () => {
   setEffect(Effect.DEFAULT);
   elementModalEffects.removeEventListener('change', onEffectChange);
+  elementModalSlider.noUiSlider.destroy();
 };
 
 const init = () => {

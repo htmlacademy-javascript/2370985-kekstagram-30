@@ -1,3 +1,4 @@
+
 /* Перечисление чисел */
 
 function generatedNumber() {
@@ -34,6 +35,7 @@ function createRandomNumberFromRangeGenerator(a, b) {
     return currentValue;
   };
 }
+
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
