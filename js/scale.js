@@ -40,11 +40,13 @@ const resetScale = () => {
 };
 
 function addEventScale() {
-  elementFormModalSmallerButtonScale.addEventListener('click', onSmallerButton);elementFormModalBiggerButtonScale.addEventListener('click', onBiggerButton);
+  elementFormModalSmallerButtonScale.addEventListener('click', onSmallerButton);
+  elementFormModalBiggerButtonScale.addEventListener('click', onBiggerButton);
 }
 
 function removeEventScale() {
-  elementFormModalSmallerButtonScale.removeEventListener('click', onSmallerButton);elementFormModalBiggerButtonScale.removeEventListener('click', onBiggerButton);
+  elementFormModalSmallerButtonScale.removeEventListener('click', onSmallerButton);
+  elementFormModalBiggerButtonScale.removeEventListener('click', onBiggerButton);
   resetScale();
 }
 

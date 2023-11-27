@@ -36,7 +36,6 @@ function createRandomNumberFromRangeGenerator(a, b) {
   };
 }
 
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {generatedNumber, getRandomNumber, createRandomNumberFromRangeGenerator, isEscapeKey};
