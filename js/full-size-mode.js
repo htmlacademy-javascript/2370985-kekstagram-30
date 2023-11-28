@@ -1,6 +1,8 @@
 import {showPicture} from './show-picture.js';
 
-const openBigPicture = (pictures, container) => {
+const container = document.querySelector('.pictures');
+
+const openBigPicture = (pictures) => {
   container.addEventListener('click', (evt) => {
     const picture = evt.target.closest('[data-picture-element-id]');
 

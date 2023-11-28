@@ -141,15 +141,20 @@ const onEffectChange = (evt) => {
   setEffect(evt.target.value);
 };
 
+const deleteSlider = () => {
+  elementModalSlider.noUiSlider.destroy();
+};
+
 const reset = () => {
+  deleteSlider();
   setEffect(Effect.DEFAULT);
   elementModalEffects.removeEventListener('change', onEffectChange);
-  elementModalSlider.noUiSlider.destroy();
 };
 
 const init = () => {
   elementModalEffects.addEventListener('change', onEffectChange);
   createSlider(EffectSliders[chosenEffect]);
 };
+
 
 export { init, reset };

@@ -4,10 +4,11 @@ import { getData } from './api.js';
 
 import { createGallery } from './gallery.js';
 
-const container = document.querySelector('.pictures');
+import { showFilter } from './filter.js';
 
 getData()
   .then((pictures) => {
-    createGallery(pictures, container);
+    createGallery(pictures);
+    showFilter(pictures);
   });
 

@@ -1,3 +1,4 @@
+const container = document.querySelector('.pictures');
 const templatePicture = document.querySelector('#picture').content.querySelector('.picture');
 
 const fillingGallery = ({url, description, likes, comments, id}) => {
@@ -11,7 +12,7 @@ const fillingGallery = ({url, description, likes, comments, id}) => {
   return pictureElement;
 };
 
-const renderGallery = (pictures, container) => {
+const renderGallery = (pictures) => {
   const fragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const gallery = fillingGallery(picture);
