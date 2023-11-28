@@ -8,6 +8,8 @@ import { addEventScale, removeEventScale } from './scale.js';
 
 import { sendData } from './api.js';
 
+import { uploadPhoto, clearPhoto } from './uploadable_photo.js';
+
 const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ErrorText = {
@@ -69,6 +71,7 @@ const showOverlay = () => {
 formElementInputField.addEventListener('change', (evt) => {
   evt.preventDefault();
   showOverlay();
+  uploadPhoto();
 });
 
 const normalizeTags = (hashtagString) => hashtagString.trim().split(' ').filter((hashtag) => Boolean(hashtag.length));
@@ -143,6 +146,7 @@ function removeEventForm() {
   document.removeEventListener('keydown', onEscKeydown);
   formElementCancelButton.removeEventListener('click', onCloseButtonForm);
   removeEventScale();
+  clearPhoto();
   reset();
 }
 
