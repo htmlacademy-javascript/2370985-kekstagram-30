@@ -1,4 +1,4 @@
-import { getRandomNumber } from './util.js';
+import { createRandomNumberFromRangeGenerator } from './util.js';
 
 import { createGallery } from './gallery.js';
 
@@ -17,13 +17,11 @@ const FilterEnum = {
 const filterHandlers = {
   [FilterEnum.DEFAULT]: (data) => data,
   [FilterEnum.RANDOM]: (data) => {
-    const randomIndexList = {};
+    const randomIndexList = [];
     const max = Math.min(MAX_RANDOM_FILTER, data.length);
     while (randomIndexList.length < max) {
-      const index = getRandomNumber(0, 25);
-      if (!randomIndexList.includes(index)) {
-        randomIndexList.push(index);
-      }
+      const index = createRandomNumberFromRangeGenerator(0, data.length - 1);
+      randomIndexList.push(index);
     }
     return randomIndexList.map((index) => data[index]);
   },
