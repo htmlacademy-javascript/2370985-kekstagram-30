@@ -156,5 +156,4 @@ const init = () => {
   createSlider(EffectSliders[chosenEffect]);
 };
 
-
 export { init, reset };
