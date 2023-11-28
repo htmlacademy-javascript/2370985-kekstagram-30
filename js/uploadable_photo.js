@@ -24,5 +24,4 @@ const clearPhoto = () => {
   URL.revokeObjectURL(preview.src);
 };
 
-
 export { uploadPhoto, clearPhoto };
