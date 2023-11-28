@@ -38,7 +38,6 @@ const hideOverlay = () => {
   pristine.reset();
   formElementOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  removeEventForm();
 };
 
 const focusedTextField = () =>
