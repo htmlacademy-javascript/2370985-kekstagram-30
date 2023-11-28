@@ -120,9 +120,13 @@ const setUserFormSubmit = (onSuccess) => {
     if (isValid) {
       blockSubmitButton();
       sendData(new FormData(evt.target))
-        .then(() => {
-          onSuccess();
-          showMessageSendData('success');
+        .then((response) => {
+          if (response.ok) {
+            onSuccess();
+            showMessageSendData('success');
+          } else {
+            showMessageSendData('error');
+          }
         })
         .catch(() => {
           showMessageSendData('error');
