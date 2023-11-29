@@ -2,7 +2,9 @@ import './form.js';
 
 import { getData } from './api.js';
 
-import { createGallery } from './gallery.js';
+import { renderGallery } from './render-gallery.js';
+
+import { openBigPicture } from './full-size-mode.js';
 
 import { showFilter } from './filter.js';
 
@@ -17,7 +19,8 @@ getData()
   })
   .then((response) => response.json())
   .then((pictures) => {
-    createGallery(pictures);
+    renderGallery(pictures);
+    openBigPicture(pictures);
     showFilter(pictures);
   })
   .catch(() => {

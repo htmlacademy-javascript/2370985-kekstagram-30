@@ -3,8 +3,9 @@ const templatePicture = document.querySelector('#picture').content.querySelector
 
 const fillingGallery = ({url, description, likes, comments, id}) => {
   const pictureElement = templatePicture.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = url;
-  pictureElement.querySelector('.picture__img').alt = description;
+  const pictureElementImage = pictureElement.querySelector('.picture__img');
+  pictureElementImage.src = url;
+  pictureElementImage.alt = description;
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
   pictureElement.dataset.pictureElementId = id;

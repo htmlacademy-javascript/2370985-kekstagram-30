@@ -8,7 +8,7 @@ import { addEventScale, removeEventScale } from './scale.js';
 
 import { sendData } from './api.js';
 
-import { uploadPhoto, clearPhoto } from './uploadable_photo.js';
+import { uploadPhoto, clearPhoto } from './uploadable-photo.js';
 
 const MAX_QUANTITY_HASHTAG = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -23,8 +23,8 @@ const form = document.querySelector('.img-upload__form');
 const formElementOverlay = form.querySelector('.img-upload__overlay');
 const formElementInputField = form.querySelector('.img-upload__input');
 const formElementCancelButton = form.querySelector('.img-upload__cancel');
-const formElementHashtagFeild = form.querySelector('.text__hashtags');
-const formElementCommentFeild = form.querySelector('.text__description');
+const formElementHashtagField = form.querySelector('.text__hashtags');
+const formElementCommentField = form.querySelector('.text__description');
 const formElementSendButton = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
@@ -40,16 +40,14 @@ const hideOverlay = () => {
   bodyElement.classList.remove('modal-open');
 };
 
-const focusedTextField = () =>
-  document.activeElement === formElementHashtagFeild ||
-  document.activeElement === formElementCommentFeild;
+const isTextFieldFocused = () =>
+  document.activeElement === formElementHashtagField ||
+  document.activeElement === formElementCommentField;
 
-function isErrorMessageExists() {
-  return Boolean(document.querySelector('.error'));
-}
+const isErrorMessageExists = () => Boolean(document.querySelector('.error'));
 
 const onEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && !focusedTextField() && !isErrorMessageExists()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideOverlay();
     removeEventForm();
@@ -85,21 +83,21 @@ const matchingRepeated = (value) => {
 };
 
 pristine.addValidator(
-  formElementHashtagFeild,
+  formElementHashtagField,
   matchingSymbols,
   ErrorText.INVALID_PATTERN,
   1,
   true);
 
 pristine.addValidator(
-  formElementHashtagFeild,
+  formElementHashtagField,
   matchingQuantity,
   ErrorText.INVALID_QUANTITY_HASHTAG,
   2,
   true);
 
 pristine.addValidator(
-  formElementHashtagFeild,
+  formElementHashtagField,
   matchingRepeated,
   ErrorText.NOT_BE_REPEATED,
   3,
