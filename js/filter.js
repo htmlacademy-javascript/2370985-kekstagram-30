@@ -1,6 +1,6 @@
 import { getRandomNumber, debounce } from './util.js';
 
-import { createGallery } from './gallery.js';
+import { renderGallery } from './render-gallery.js';
 
 const MAX_RANDOM_FILTER = 10;
 
@@ -34,11 +34,11 @@ const filterHandlers = {
 let currentFilter = FilterEnum.DEFAULT;
 
 const repaint = (typeFilter, data) => {
-  if(currentFilter !== typeFilter) {
+  if (currentFilter !== typeFilter) {
     const filterData = filterHandlers[typeFilter](data);
     const pictures = document.querySelectorAll('.picture');
     pictures.forEach((element) => element.remove());
-    createGallery(filterData);
+    renderGallery(filterData);
     currentFilter = typeFilter;
   }
 };
@@ -49,9 +49,11 @@ const showFilter = (data) => {
   filter.classList.remove('img-filters--inactive');
 
   filterElementForm.addEventListener('click', (evt) => {
-    const selectedButton = evt.target.closest('.img-filters__button');
-    filterElementButton.forEach((element) => element.classList.remove('img-filters__button--active'));
-    selectedButton.classList.add('img-filters__button--active');
+    if (evt.target.closest('.img-filters__button')) {
+      const selectedButton = evt.target.closest('.img-filters__button');
+      filterElementButton.forEach((element) => element.classList.remove('img-filters__button--active'));
+      selectedButton.classList.add('img-filters__button--active');
+    }
 
     if (evt.target.closest('#filter-default')) {
       debouncedRepaint(FilterEnum.DEFAULT, data);

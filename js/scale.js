@@ -11,7 +11,7 @@ const elementFormModalInputFieldScale = elementFormModal.querySelector('.scale__
 
 let valueInput = elementFormModalInputFieldScale.value.replace('%','');
 
-const transromImage = () => {
+const transformImage = () => {
   elementModalImage.style.transform = `scale(${valueInput / 100})`;
   elementFormModalInputFieldScale.value = `${valueInput}%`;
 };
@@ -22,7 +22,7 @@ const onSmallerButton = () => {
   } else {
     return;
   }
-  transromImage();
+  transformImage();
 };
 
 const onBiggerButton = () => {
@@ -31,23 +31,23 @@ const onBiggerButton = () => {
   } else {
     return;
   }
-  transromImage();
+  transformImage();
 };
 
 const resetScale = () => {
   valueInput = DEFAULT_SCALE;
-  transromImage();
+  transformImage();
 };
 
-function addEventScale() {
+const addEventScale = () => {
   elementFormModalSmallerButtonScale.addEventListener('click', onSmallerButton);
   elementFormModalBiggerButtonScale.addEventListener('click', onBiggerButton);
-}
+};
 
-function removeEventScale() {
+const removeEventScale = () => {
   elementFormModalSmallerButtonScale.removeEventListener('click', onSmallerButton);
   elementFormModalBiggerButtonScale.removeEventListener('click', onBiggerButton);
   resetScale();
-}
+};
 
 export { addEventScale, removeEventScale };

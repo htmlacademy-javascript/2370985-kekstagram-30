@@ -3,7 +3,7 @@ import { isEscapeKey } from './util.js';
 const bodyElement = document.body;
 
 const hideMessageSendData = () => {
-  const message = document.querySelector('.success') || document.querySelector('.error');
+  const message = document.querySelector('.success, .error');
   message.remove();
   removeEventMessage();
 };
@@ -11,11 +11,6 @@ const hideMessageSendData = () => {
 const cloneMessage = (event) => {
   const messageTemplate = document.querySelector(`#${event}`).content.querySelector(`.${event}`).cloneNode(true);
   bodyElement.append(messageTemplate);
-};
-
-const showMessageSendData = (event) => {
-  cloneMessage(event);
-  addEventMessage();
 };
 
 const closeMessageGetData = (element) => {
@@ -41,22 +36,28 @@ const onEscKeydown = (evt) => {
 };
 
 const onBodyClick = (evt) => {
-  const click = evt.composedPath().includes(document.querySelector('.success__inner')) || evt.composedPath().includes(document.querySelector('.error__inner'));
+  const window = document.querySelector('.success__inner, .error__inner');
+  const click = evt.composedPath().includes(window);
   if (!click) {
     hideMessageSendData();
   }
 };
 
-function addEventMessage() {
+const addEventMessage = () => {
   document.addEventListener('keydown', onEscKeydown);
-  (document.querySelector('.success__button') || document.querySelector('.error__button')).addEventListener('click', onMessageElementButton);
+  (document.querySelector('.success__button, .error__button')).addEventListener('click', onMessageElementButton);
 
   document.addEventListener('click', onBodyClick);
-}
+};
 
 function removeEventMessage() {
   document.removeEventListener('keydown', onEscKeydown);
   document.removeEventListener('click', onBodyClick);
 }
+
+const showMessageSendData = (event) => {
+  cloneMessage(event);
+  addEventMessage();
+};
 
 export { showMessageSendData, showMessageGetData };
