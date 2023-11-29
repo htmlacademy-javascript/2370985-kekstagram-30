@@ -38,6 +38,7 @@ const hideOverlay = () => {
   pristine.reset();
   formElementOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  removeEventForm();
 };
 
 const isTextFieldFocused = () =>
@@ -50,14 +51,27 @@ const onEscKeydown = (evt) => {
   if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideOverlay();
-    removeEventForm();
   }
 };
 
 const onCloseButtonForm = () => {
   hideOverlay();
-  removeEventForm();
 };
+
+const addEventForm = () => {
+  document.addEventListener('keydown', onEscKeydown);
+  formElementCancelButton.addEventListener('click', onCloseButtonForm);
+  addEventScale();
+  init();
+};
+
+function removeEventForm() {
+  document.removeEventListener('keydown', onEscKeydown);
+  formElementCancelButton.removeEventListener('click', onCloseButtonForm);
+  removeEventScale();
+  clearPhoto();
+  reset();
+}
 
 const showOverlay = () => {
   formElementOverlay.classList.remove('hidden');
@@ -135,19 +149,3 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 setUserFormSubmit(hideOverlay);
-
-function addEventForm() {
-  document.addEventListener('keydown', onEscKeydown);
-  formElementCancelButton.addEventListener('click', onCloseButtonForm);
-  addEventScale();
-  init();
-}
-
-function removeEventForm() {
-  document.removeEventListener('keydown', onEscKeydown);
-  formElementCancelButton.removeEventListener('click', onCloseButtonForm);
-  removeEventScale();
-  clearPhoto();
-  reset();
-}
-
